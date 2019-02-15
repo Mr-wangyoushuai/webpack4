@@ -1,3 +1,3 @@
 let str = 'wangyoushuai'
 console.log(str);
-console.log('hello world')
+console.log('hello world');
