@@ -1,0 +1,7 @@
+body{
+  width: 100vw;
+  height: 100vh;
+  background: url('http://img03.tooopen.com/uploadfile/downs/images/20110714/sy_20110714135215645030.jpg') no-repeat ;
+  background-size: 50% 50%;
+  color: red;
+}
