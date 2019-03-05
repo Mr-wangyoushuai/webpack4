@@ -55,6 +55,6 @@ rules: [
 完成后在插件配置(plugins)中加入生成文件
 new ExtractCss('mine.css')// 生成文件 mine.css
 ```
-当然也可以用``` mini-css-extract-plugin``` 插件，访问 [mini-css-extract-plugin](https://www.npmjs.com/package/mini-css-extract-plugin);
+当然webpack4更建议用``` mini-css-extract-plugin``` 插件，访问 [mini-css-extract-plugin](https://www.npmjs.com/package/mini-css-extract-plugin);
 
 
