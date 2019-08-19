@@ -583,6 +583,47 @@ new Happypack({
 ```
 css 使用方法相同
 
+## webpack自带的优化
+- tree shaking
+
+import 导入，没有的代码不打包
+
+require 导入，es6模块导出，不会
+- scoped hosting 作用域提升
+
+在webpack中可以自动简化一些代码 
+
+let a = 1;
+let b =2;
+let c = a + b;
+console.log(c)
+直接解析结果
+
+## 懒加载
+import es草案中的语法，
+
+jsonp实现动态加载文件
+
+```
+import ('./test.js').then( data => {
+    console.log(data.default)
+})
+```
+
+## 热更新
+
+- devServer hot: true
+- new webpack.HotModuleReplacePlugin()
+
+```
+if(module.hot){
+    module.hot.accept('./test.js',() => {
+        console.log('文件更新了')
+    })
+}
+
+
+
 
 
 
