@@ -509,6 +509,81 @@ noParse: /jquery/
 ```
 new webpack.ignorePlugin(/\.\/locale/, /moment/) // 表示引入moment包的的时候 忽略./locale文件（语言包）需要的时候需要自行引入 比如 import 'moment/locale/zh-cn';
 ```
+## dllPlugin 
+动态链接库
+
+我们来打包一下 react react-dom 打包比较大，我们可以把他单独打包，不用在项目每次打包的时候进行打包。
+
+我们新建一个打包配置文件webpack.test.config.js
+
+进行配置：
+```
+const path = require('path');
+const webpack = require('webpack');
+module.exports = {
+    mode: 'development',
+    entry: {
+        react: ['react', 'react-dom']
+    },
+    output: {
+        filename: '_dll_[name].js',
+        path: path.resolve(__dirname, 'dist'),
+        library: '_dll_[name]'
+        // library Target: 'var' // 'umd' 'commonjs' 'this' ...
+    },
+    plugins: [
+        new webpack.DllPlugin({
+            name: '_dll_[name]',
+            path: path.resolve(__dirname, 'dist', 'manifest.json')
+        })
+    ]
+}
+```
+这样我们执行 npm run build -- --config webpack.test.config.js
+就会在dist目录下生成动态链接库 _dll_react.js 以及 manifest.json 清单
+
+接下来我们在我们的项目中引入 需要在index.html中引入 然后在我们的webpack配置中配置
+
+```
+new webpack.DllReferencePlugin({
+    manifest: path.resolve(__dirname, 'dist', 'manifest.json')
+})
+```
+
+## happypack
+作用：多线程打包 项目比较大时可以使用加快打包速度
+
+安装：
+```
+yarn add happypack -D
+```
+
+配置：
+```
+const Happypack = require('happypack');
+
+在js打包规则中配置
+use: 'Happypack/loader?id=js'
+在plugins中
+new Happypack({
+    id: 'js',
+    use:[
+        {
+            // 打包用的loader
+            loader: 'babel-loader',
+            options: {
+                presets: [
+                    '@babel/preset-env',
+                    '@babel/preset-react'
+                ]
+            }
+        }
+    ]
+})
+```
+css 使用方法相同
+
+
 
 
 
